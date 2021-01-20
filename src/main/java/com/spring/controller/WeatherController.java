@@ -32,7 +32,7 @@ public class WeatherController {
 	
 		WeatherDetail service=weatherService.getWeatherService(cityId);
 		
-
+System.out.println("After git changes");
 		return service;
 		
 	}
