@@ -1,0 +1,12 @@
+api:
+ url: http://api.openweathermap.org/data/2.5/weather?id=
+ key: 80ef4f9656b54e6e700d5545afc4f41a
+
+
+ main:
+  banner-mode: off
+
+spring:
+ output:
+  ansi:
+   enabled: ALWAYS
