@@ -15,9 +15,9 @@ public class WeatherDetail {
 		this.main = main;
 	}
 
-public WeatherDetail() {
-	
-}
+	public WeatherDetail() {
+		
+	}
 
 	public WeatherDetail(WeatherMain main) {
         this.main = main;
@@ -86,7 +86,19 @@ public WeatherMain(String temp,String feels_like,String temp_min,String temp_max
 		this.humidity = humidity;
 	}
 	
+	@Override
+	public String toString () {
+	    return "User{" +
+	                        "temp=" + temp +
+	                        ", feels_like='" + feels_like + '\'' +
+	                        ", temp_min='" + temp_min + '\'' +
+	                        ", temp_max='" + temp_max + '\'' +
+	                        '}';
 	}
+	
+	}
+
+
 
 	
 

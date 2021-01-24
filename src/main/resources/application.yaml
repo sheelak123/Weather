@@ -1,12 +1,41 @@
 api:
- url: http://api.openweathermap.org/data/2.5/weather?id=
+ url: http://api.openweathermap.org/data/2.5/weather?
  key: 80ef4f9656b54e6e700d5545afc4f41a
+ groupurl: http://api.openweathermap.org/data/2.5/group?
 
-
- main:
-  banner-mode: off
+ 
 
 spring:
  output:
   ansi:
    enabled: ALWAYS
+   
+ main:
+  banner-mode: off  
+  
+env:
+   desc: dev
+---
+spring:
+ profiles: dev
+ 
+env:
+   desc: dev
+---
+
+spring:
+ profiles: test
+ 
+env:
+   desc: test
+---
+spring:
+   profiles: prod
+env:
+   desc: prod   
+
+devtools:
+  restart:
+   additional-paths: .
+   
+   

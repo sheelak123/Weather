@@ -19,7 +19,7 @@ public class LoggingAspect {
 	
 	Logger logger=LoggerFactory.getLogger(LoggingAspect.class);
 	
-	@Pointcut("within(com.spring..*)")
+	@Pointcut("within(com.spring.Repository.*)")
 	public void applicationPackagePointcut() {
 			
 		
@@ -27,17 +27,18 @@ public class LoggingAspect {
 	
 	
 	@Around("applicationPackagePointcut()")
-	 public void logAroundAllMethods(ProceedingJoinPoint pjp) throws Throwable 
+	 public Object logAroundAllMethods(ProceedingJoinPoint pjp) throws Throwable 
 	    {
 	        System.out.println("****LoggingAspect.logAroundAllMethods() - Before "+ pjp.getSignature().getName() +" call");
 	        long start = System.currentTimeMillis();
 	        logger.info("Method " + pjp.getSignature().getName() + " execution started at:" + new Date());
 	         
-	        pjp.proceed();
+	        Object result =  pjp.proceed();
 	        
 	        long end=System.currentTimeMillis();
-	         
+	         System.out.println("processing time   "+(end-start));
 	        System.out.println("****LoggingAspect.logAroundAllMethods() - After "+ pjp.getSignature().getName() +" call");
+	        return result;
 	    }
 	
 	
