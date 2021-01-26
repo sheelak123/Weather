@@ -6,12 +6,15 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.web.client.RestTemplate;
 
+import com.netflix.hystrix.contrib.javanica.annotation.DefaultProperties;
+import com.netflix.hystrix.contrib.javanica.annotation.HystrixCommand;
 import com.spring.Model.WeatherDetail;
 import com.spring.Model.WeatherDetailList;
 import com.spring.Model.WeatherRequestBody;
 import com.spring.util.WeatherUtility;
 
 @Repository
+@DefaultProperties
 public class WeatherRepo {
 
 	@Autowired
@@ -20,6 +23,7 @@ public class WeatherRepo {
 	@Autowired
 	private WeatherUtility util;
 
+	@HystrixCommand(fallbackMethod="defaultFallBackMethod",commandKey="getWeatherApi")
 	public WeatherDetail getWeatherApi(WeatherRequestBody requestBody) {
 
 		String apiLink = util.createUrl(requestBody);
@@ -46,4 +50,10 @@ public class WeatherRepo {
 		return listResponse;
 	}
 
+	public WeatherDetail defaultFallBackMethod(WeatherRequestBody requestBody,Throwable throwable) {
+		WeatherDetail detail=new WeatherDetail();	
+		 System.out.printf("fallback******, input:%s, exception:%s%n", requestBody, throwable);
+		return detail;
+	}
+	
 }
