@@ -9,6 +9,7 @@ import org.springframework.web.client.RestTemplate;
 import com.netflix.hystrix.contrib.javanica.annotation.DefaultProperties;
 import com.netflix.hystrix.contrib.javanica.annotation.HystrixCommand;
 import com.spring.Model.WeatherDetail;
+import com.spring.Model.WeatherDetail.WeatherMain;
 import com.spring.Model.WeatherDetailList;
 import com.spring.Model.WeatherRequestBody;
 import com.spring.util.WeatherUtility;
@@ -51,7 +52,10 @@ public class WeatherRepo {
 	}
 
 	public WeatherDetail defaultFallBackMethod(WeatherRequestBody requestBody,Throwable throwable) {
-		WeatherDetail detail=new WeatherDetail();	
+		WeatherDetail detail=new WeatherDetail();
+		WeatherMain mainDetail=new WeatherMain();
+		mainDetail.setTemp("296.80");
+		detail.setMain(mainDetail);
 		 System.out.printf("fallback******, input:%s, exception:%s%n", requestBody, throwable);
 		return detail;
 	}

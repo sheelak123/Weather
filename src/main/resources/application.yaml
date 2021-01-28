@@ -10,8 +10,7 @@ spring:
   ansi:
    enabled: ALWAYS
    
- main:
-  banner-mode: off  
+ 
   
 env:
    desc: dev
@@ -37,5 +36,47 @@ env:
 devtools:
   restart:
    additional-paths: .
+   
+   
+hystrix:
+ command:
+  getWeatherApi:
+   circuitBreaker:
+    requestVolumeThreshold: 2
+    
+
+
+
+   metrics:
+    rollingStats:
+     timeInMilliseconds: 500
+     
+
+  default:
+   circuitBreaker:
+    errorThresholdPercentage: 1
+    
+
+    sleepWindowInMilliseconds: 1000
+    
+
+    getWeatherApi:
+     execution:
+      isolation:
+       thread:
+        timeoutInMilliseconds: 2000
+        
+
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+        
+        
+
+
+
    
    

@@ -19,6 +19,7 @@ public class WeatherService {
 	public WeatherDetail getWeatherService(WeatherRequestBody requestBody) {
 		// TODO Auto-generated method stub
 		System.out.println("Inside getWeatherService method");
+		
 		WeatherDetail api = weatherRepo.getWeatherApi(requestBody);
 		
 		return api;
