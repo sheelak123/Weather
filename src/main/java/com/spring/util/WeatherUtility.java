@@ -8,23 +8,20 @@ import java.util.stream.Stream;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
+import org.springframework.web.client.RestTemplate;
 
 import com.spring.Model.WeatherRequestBody;
+import com.spring.config.ApiConfig;
 
 @Component
 public class WeatherUtility {
 
-	@Value("${api.url}")
-	private String apiUrl;
-
-	@Value("${api.key}")
-	private String apiKey;
-
-	@Value("${api.groupurl}")
-	private String idListUrl;
 	
+	@Autowired
+	private ApiConfig apiConfig;
 	
 	@Value("${env.desc}")
     private String envDesc;
@@ -35,7 +32,7 @@ public class WeatherUtility {
 
 	public String createUrl(WeatherRequestBody requestBody) {
 		// TODO Auto-generated method stub
-		System.out.printf("Environment Description : %s    ", envDesc);
+		//System.out.printf("Environment Description : %s    ", envDesc);
 		
 		String qString = null;
 		String idString = null;
@@ -43,7 +40,8 @@ public class WeatherUtility {
 		
 		
 
-		if (requestBody.getCityName().isPresent()) {
+		if (requestBody.getCityName().isPresent() ) {
+			System.out.println("inside get cityName");
 			qString = requestBody.getCityName().get();
 		}
 
@@ -57,7 +55,9 @@ public class WeatherUtility {
 		}
 
 		if (requestBody.getCityId().isPresent()) {
+			System.out.println("inside cityId");
 			idString = requestBody.getCityId().get();
+			System.out.println("inside cityId idString"+idString);
 		}
 
 		if (requestBody.getZipCode().isPresent()) {
@@ -70,14 +70,16 @@ public class WeatherUtility {
 		
 
 		if (qString != null) {
-			url = apiUrl + "q=" + qString + "&appid=" + apiKey;
+			url = apiConfig.getUrl() + "q=" + qString + "&appid=" + apiConfig.getKey();
 		}
 		if (idString != null) {
-			url = apiUrl + "id=" + idString + "&appid=" + apiKey;
+			System.out.println("idString");
+			url = apiConfig.getUrl() + "id=" + idString + "&appid=" + apiConfig.getKey();
+			System.out.println("url of cityId"+url);
 		}
 		if (zipString != null) {
 
-			url = apiUrl + "zip=" + zipString + "&appid=" + apiKey;
+			url = apiConfig.getUrl() + "zip=" + zipString + "&appid=" + apiConfig.getKey();
 		}
 		
 		logger.info("Url : " + url);
@@ -106,7 +108,7 @@ public class WeatherUtility {
 		}
 		if (idList != null) {
 
-			url = idListUrl + "id=" + idList + "&appid=" + apiKey;
+			url = apiConfig.getGroupurl() + "id=" + idList + "&appid=" + apiConfig.getKey();
 		}
 		logger.info("Url : " + url);
 		return url;

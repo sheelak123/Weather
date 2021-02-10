@@ -38,28 +38,18 @@ devtools:
    additional-paths: .
    
    
-hystrix:
+hystrix:     
  command:
   getWeatherApi:
    circuitBreaker:
     requestVolumeThreshold: 2
-    
-
-
-
    metrics:
     rollingStats:
      timeInMilliseconds: 500
-     
-
   default:
    circuitBreaker:
     errorThresholdPercentage: 1
-    
-
     sleepWindowInMilliseconds: 1000
-    
-
     getWeatherApi:
      execution:
       isolation:
@@ -68,15 +58,8 @@ hystrix:
         
 
 
-management:
-  endpoints:
-    web:
-      exposure:
-        include: "*"
+
         
         
 
-
-
-   
-   
+  

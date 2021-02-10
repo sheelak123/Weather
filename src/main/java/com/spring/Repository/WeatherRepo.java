@@ -26,8 +26,9 @@ public class WeatherRepo {
 
 	@HystrixCommand(fallbackMethod="defaultFallBackMethod",commandKey="getWeatherApi")
 	public WeatherDetail getWeatherApi(WeatherRequestBody requestBody) {
-
+		System.out.println("First line of getWeatherApi method ");
 		String apiLink = util.createUrl(requestBody);
+		System.out.println("apiLink *****"+apiLink);
 		WeatherDetail detail = restTemplate.getForObject(apiLink, WeatherDetail.class);
 		
 		/*
@@ -54,7 +55,12 @@ public class WeatherRepo {
 	public WeatherDetail defaultFallBackMethod(WeatherRequestBody requestBody,Throwable throwable) {
 		WeatherDetail detail=new WeatherDetail();
 		WeatherMain mainDetail=new WeatherMain();
-		mainDetail.setTemp("296.80");
+		mainDetail.setTemp("200.00");
+		mainDetail.setFeels_like("200.00");
+		mainDetail.setTemp_min("200.00");
+		mainDetail.setTemp_max("200.00");
+		mainDetail.setPressure("1000");
+		mainDetail.setHumidity("10");
 		detail.setMain(mainDetail);
 		 System.out.printf("fallback******, input:%s, exception:%s%n", requestBody, throwable);
 		return detail;
