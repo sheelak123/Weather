@@ -20,6 +20,8 @@ import com.spring.config.ApiConfig;
 public class WeatherUtility {
 
 	
+	
+
 	@Autowired
 	private ApiConfig apiConfig;
 	
@@ -29,6 +31,11 @@ public class WeatherUtility {
 	Logger logger = LoggerFactory.getLogger(WeatherUtility.class);
 	
 	String url = null;
+	
+	public WeatherUtility(ApiConfig apiConfig) {
+		this.apiConfig = apiConfig;
+		
+	}
 
 	public String createUrl(WeatherRequestBody requestBody) {
 		// TODO Auto-generated method stub
@@ -37,9 +44,6 @@ public class WeatherUtility {
 		String qString = null;
 		String idString = null;
 		String zipString = null;
-		
-		
-
 		if (requestBody.getCityName().isPresent() ) {
 			System.out.println("inside get cityName");
 			qString = requestBody.getCityName().get();
@@ -74,6 +78,7 @@ public class WeatherUtility {
 		}
 		if (idString != null) {
 			System.out.println("idString");
+			
 			url = apiConfig.getUrl() + "id=" + idString + "&appid=" + apiConfig.getKey();
 			System.out.println("url of cityId"+url);
 		}

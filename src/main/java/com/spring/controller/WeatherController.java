@@ -39,6 +39,7 @@ public class WeatherController {
 		logger.info("getWeather method accessed");
 
 		requestBody.setCityName(cityName);
+		System.out.println("cityName  ****"+requestBody.getCityName());
 		requestBody.setStatecode(stateCode);
 		requestBody.setCountryCode(countryCode);
 		requestBody.setCityId(cityId);
@@ -52,7 +53,7 @@ public class WeatherController {
 		@RequestMapping("/group")
 		public List<WeatherDetail> getWeatherByIdList(
 				@RequestParam("idList") Optional<List<String>> idList) {
-
+			System.out.println("idList"+idList);
 			logger.info("getWeatherByIdList  method accessed");
 			requestBody.setIdList(idList);
 			List<WeatherDetail> serviceList = weatherService.getWeatherServiceByList(requestBody);

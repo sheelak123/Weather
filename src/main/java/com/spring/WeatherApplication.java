@@ -21,7 +21,6 @@ import com.spring.config.ApiConfig;
 @EnableHystrix
 @EnableHystrixDashboard
 @EnableCircuitBreaker
-@ConfigurationPropertiesScan("com.spring.config.ApiConfig")
 public class WeatherApplication {
 	
 	@Bean
@@ -29,11 +28,7 @@ public class WeatherApplication {
 	    return new RestTemplate();
 	}
 	
-	@Bean
-	public ApiConfig apiConfig() {
-	    return new ApiConfig();
-	}
-
+	
 
 	public static void main(String[] args) {
 		SpringApplication.run(WeatherApplication.class, args);
